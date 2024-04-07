@@ -71,9 +71,24 @@ def getTxtFileNames():
 
     return filesInDirectory
 
+def missingCardImages():
+    cardImageLibrary = r"H:\My Drive\Digimon\Card Images\Low Res"
+    cardsInTheFileDirectory = [os.path.splitext(filename)[0] for filename in os.listdir(cardImageLibrary)]
+    cardsInTheFileDirectory = set(cardsInTheFileDirectory)
+    cardList = decklist
+    cardNumInDeck = ""
+    for x in range(len(cardList)):
+        cardNum = getCardNum(x)
+        cardNumInDeck += cardNum + "\n"
+
+    cardsInDeck = set(cardNumInDeck.split("\n"))
+    whatsMissing = cardsInDeck - cardsInTheFileDirectory
+    return whatsMissing
+
+#Uncomment these
 rawFileName = "rawDecklists"
 decklist = getRawData(rawFileName).split("\n")
 fileName = "deckList"
 formatDecklist = createTxtFile(fileName)
-#filesInDirectory = getTxtFileNames()
-#print(filesInDirectory)
+print(missingCardImages())
+
